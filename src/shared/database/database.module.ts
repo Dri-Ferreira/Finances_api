@@ -4,6 +4,6 @@ import { UsersRepository } from '../repositories/users.repositories';
 
 @Module({
   providers: [PrismaService, UsersRepository],
-  exports: [UsersRepository, PrismaService],
+  exports: [UsersRepository],
 })
 export class DatabaseModule {}
