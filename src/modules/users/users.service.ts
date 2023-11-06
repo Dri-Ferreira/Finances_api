@@ -1,21 +1,19 @@
 import { ConflictException, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
-import { PrismaService } from 'src/shared/database/prisma.service';
 import { hash } from 'bcryptjs';
+import { UsersRepository } from 'src/shared/repositories/users.repositories';
 
 @Injectable()
 export class UsersService {
-  constructor(private readonly prismaService: PrismaService) {}
+  constructor(private readonly usersRepo: UsersRepository) {}
   async create(createUserDto: CreateUserDto) {
-    const emailTaken = await this.prismaService.user.findUnique({
-      where: { email: createUserDto.email },
-    });
+    const emailTaken = await this.usersRepo.existUser(createUserDto.email);
 
     if (emailTaken)
       throw new ConflictException('This email is already in use.');
 
     const hashedPassword = await hash(createUserDto.password, 10);
-    const user = await this.prismaService.user.create({
+    const user = await this.usersRepo.create({
       data: {
         name: createUserDto.name,
         email: createUserDto.email,
