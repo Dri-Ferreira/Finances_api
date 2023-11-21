@@ -16,7 +16,9 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
   async signin(signinDto: SigninDto) {
-    const user = await this.usersRepo.existUser(signinDto.email);
+    const user = await this.usersRepo.existUser({
+      where: { email: signinDto.email },
+    });
 
     if (!user) throw new UnauthorizedException('Invalid credentials');
 
@@ -32,7 +34,10 @@ export class AuthService {
   }
 
   async signup(signupDto: SignupDto) {
-    const emailTaken = await this.usersRepo.existUser(signupDto.email);
+    const emailTaken = await this.usersRepo.existUser({
+      where: { email: signupDto.email },
+      select: { id: true },
+    });
 
     if (emailTaken)
       throw new ConflictException('This email is already in use.');
