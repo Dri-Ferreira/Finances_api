@@ -19,4 +19,8 @@ export class BankAccountsRepository {
   update(updateDto: Prisma.BankAccountUpdateArgs) {
     return this.prismaService.bankAccount.update(updateDto);
   }
+
+  delete(deleteDto: Prisma.BankAccountDeleteArgs) {
+    return this.prismaService.bankAccount.delete(deleteDto);
+  }
 }
