@@ -48,7 +48,8 @@ export class TransactionsService {
     transactionId: string,
     updateTransactionDto: UpdateTransactionDto,
   ) {
-    const { bankAccountId, categoryId, date, name, type, value } = updateTransactionDto;
+    const { bankAccountId, categoryId, date, name, type, value } =
+      updateTransactionDto;
     await this.validateEntitiesOwnership({
       userId,
       transactionId,
