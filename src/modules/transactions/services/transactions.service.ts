@@ -73,6 +73,7 @@ export class TransactionsService {
     return `This action removes a #${id} transaction`;
   }
 
+  // função que valida os parametros 
   private async validateEntitiesOwnership({
     userId,
     bankAccountId,
