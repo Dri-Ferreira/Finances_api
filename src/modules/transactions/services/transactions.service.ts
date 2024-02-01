@@ -1,4 +1,3 @@
-
 import { Injectable } from '@nestjs/common';
 import { CreateTransactionDto } from '../dto/create-transaction.dto';
 import { UpdateTransactionDto } from '../dto/update-transaction.dto';
@@ -75,6 +74,8 @@ export class TransactionsService {
     await this.transactionsRepo.delete({
       where: { id: transactionId },
     });
+
+    return null;
   }
   // função que valida os parametros
   private async validateEntitiesOwnership({
