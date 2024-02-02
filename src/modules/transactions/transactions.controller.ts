@@ -16,6 +16,7 @@ import { TransactionsService } from './services/transactions.service';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { UpdateTransactionDto } from './dto/update-transaction.dto';
 import { ActiveUserId } from 'src/shared/decorators/ActiveUserId';
+import { OptionalParseUUIDPipe } from 'src/shared/pipes/OptionalParseUUIDPipe';
 
 @Controller('transactions')
 export class TransactionsController {
@@ -25,7 +26,8 @@ export class TransactionsController {
   findAll(
     @ActiveUserId() userId: string,
     @Query('month', ParseIntPipe) month: number,
-    @Query('year', ParseIntPipe) year: number,
+    @Query('year', ParseUUIDPipe) year: number,
+    @Query('bankAccountId', OptionalParseUUIDPipe) bankAccountId?: number,
   ) {
     return this.transactionsService.findAllByUserId(userId, { month, year });
   }
