@@ -27,9 +27,13 @@ export class TransactionsController {
     @ActiveUserId() userId: string,
     @Query('month', ParseIntPipe) month: number,
     @Query('year', ParseUUIDPipe) year: number,
-    @Query('bankAccountId', OptionalParseUUIDPipe) bankAccountId?: number,
+    @Query('bankAccountId', OptionalParseUUIDPipe) bankAccountId?: string,
   ) {
-    return this.transactionsService.findAllByUserId(userId, { month, year });
+    return this.transactionsService.findAllByUserId(userId, {
+      month,
+      year,
+      bankAccountId,
+    });
   }
 
   @Post()
